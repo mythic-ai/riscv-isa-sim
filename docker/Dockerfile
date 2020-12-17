@@ -23,4 +23,4 @@ RUN ../configure --prefix=${RISCV} && \
     make -j6 && \
     make install
 
-ENTRYPOINT [ "bash", "-l" ]
+ENTRYPOINT [ "bash", "-lc" ]
