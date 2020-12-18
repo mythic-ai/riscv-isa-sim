@@ -7,7 +7,7 @@ RUN mkdir /mythic/riscv-gnu-toolchain/build
 WORKDIR /mythic/riscv-gnu-toolchain/build
 ENV RISCV=/usr/local
 RUN ../configure --help
-RUN ../configure --prefix=${RISCV} --with-arch=rv32i --with-abi=ilp32
+RUN ../configure --prefix=${RISCV} --with-arch=rv32ia --with-abi=ilp32
 RUN make newlib -j6
 ENV PATH=${PATH}:${RISCV}/bin
 
@@ -20,6 +20,11 @@ COPY . /mythic/riscv-tools/riscv-isa-sim/
 RUN mkdir /mythic/riscv-tools/riscv-isa-sim/build
 WORKDIR /mythic/riscv-tools/riscv-isa-sim/build
 RUN ../configure --prefix=${RISCV} && \
+    make -j6 && \
+    make install
+RUN mkdir /mythic/riscv-tools/riscv-pk/build
+WORKDIR /mythic/riscv-tools/riscv-pk/build
+RUN ../configure --prefix=${RISCV} --host=riscv32-unknown-elf && \
     make -j6 && \
     make install
 
