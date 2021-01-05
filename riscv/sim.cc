@@ -81,6 +81,11 @@ sim_t::sim_t(const char* isa, const char* priv, const char* varch,
                                log_file.get());
   }
 
+  for (auto& x : plugin_devices) {
+    printf("reg_proc\n");
+    x.second->reg_procs(procs);
+  }
+
   make_dtb();
 
   void *fdt = (void *)dtb.c_str();

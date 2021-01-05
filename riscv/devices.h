@@ -15,6 +15,7 @@ class abstract_device_t {
  public:
   virtual bool load(reg_t addr, size_t len, uint8_t* bytes) = 0;
   virtual bool store(reg_t addr, size_t len, const uint8_t* bytes) = 0;
+  virtual void reg_procs(std::vector<processor_t*>& procs) {};
   virtual ~abstract_device_t() {}
 };
 
@@ -89,6 +90,7 @@ class mmio_plugin_device_t : public abstract_device_t {
 
   virtual bool load(reg_t addr, size_t len, uint8_t* bytes) override;
   virtual bool store(reg_t addr, size_t len, const uint8_t* bytes) override;
+  virtual void reg_procs(std::vector<processor_t*>& procs) override;
 
  private:
   mmio_plugin_t plugin;

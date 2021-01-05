@@ -30,6 +30,8 @@ typedef struct {
   // Return true if the store is successful and false otherwise.
   bool (*store)(void*, reg_t, size_t, const uint8_t*);
 
+  void (*reg_procs)(void*, void*);
+
   // Deallocate the data allocated during the call to alloc. The parameter is a
   // pointer to the user data allocated during the call to alloc.
   void (*dealloc)(void*);
@@ -69,6 +71,10 @@ struct mmio_plugin_registration_t
     return reinterpret_cast<T*>(self)->store(addr, len, bytes);
   }
 
+  static void reg_procs(void* self, void* procs) {
+    reinterpret_cast<T*>(self)->reg_procs(procs);
+  }
+
   static void dealloc(void* self)
   {
     delete reinterpret_cast<T*>(self);
@@ -80,6 +86,7 @@ struct mmio_plugin_registration_t
       mmio_plugin_registration_t<T>::alloc,
       mmio_plugin_registration_t<T>::load,
       mmio_plugin_registration_t<T>::store,
+      mmio_plugin_registration_t<T>::reg_procs,
       mmio_plugin_registration_t<T>::dealloc,
     };
 

@@ -88,3 +88,7 @@ bool mmio_plugin_device_t::store(reg_t addr, size_t len, const uint8_t* bytes)
 {
   return (*plugin.store)(user_data, addr, len, bytes);
 }
+
+void mmio_plugin_device_t::reg_procs(std::vector<processor_t*>& procs) {
+  (*plugin.reg_procs)(user_data, &procs);
+}
