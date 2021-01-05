@@ -82,7 +82,7 @@ sim_t::sim_t(const char* isa, const char* priv, const char* varch,
   }
 
   for (auto& x : plugin_devices) {
-    printf("reg_proc\n");
+    //printf("reg_proc\n");
     x.second->reg_procs(procs);
   }
 
